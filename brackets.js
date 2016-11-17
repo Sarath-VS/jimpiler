@@ -72,12 +72,12 @@
   }
 */
 var brackets = (function(){
-var o=function(k,v,o,l){for(o=o||{},l=k.length;l--;o[k[l]]=v);return o},$V0=[5,6];
+var o=function(k,v,o,l){for(o=o||{},l=k.length;l--;o[k[l]]=v);return o},$V0=[1,3],$V1=[1,6],$V2=[5,6,7];
 var parser = {trace: function trace() { },
 yy: {},
-symbols_: {"error":2,"expressions":3,"E":4,"EOF":5,"+":6,"NUMBER":7,"$accept":0,"$end":1},
-terminals_: {2:"error",5:"EOF",6:"+",7:"NUMBER"},
-productions_: [0,[3,2],[4,3],[4,1]],
+symbols_: {"error":2,"expressions":3,"E":4,"EOF":5,"+":6,"*":7,"NUMBER":8,"$accept":0,"$end":1},
+terminals_: {2:"error",5:"EOF",6:"+",7:"*",8:"NUMBER"},
+productions_: [0,[3,2],[4,3],[4,3],[4,1]],
 performAction: function anonymous(yytext, yyleng, yylineno, yy, yystate /* action[1] */, $$ /* vstack */, _$ /* lstack */) {
 /* this == yyval */
 
@@ -87,12 +87,15 @@ case 1:
  typeof console !== 'undefined' ? console.log($$[$0-1]) : print($$[$0-1]);
           return $$[$0-1]; 
 break;
-case 2:
+case 2: case 3:
 this.$ = `(${$$[$0-2]} ${$$[$0-1]} ${$$[$0]})`
+break;
+case 4:
+this.$ = require('number-to-words').toWords($$[$0])
 break;
 }
 },
-table: [{3:1,4:2,7:[1,3]},{1:[3]},{5:[1,4],6:[1,5]},o($V0,[2,3]),{1:[2,1]},{7:[1,6]},o($V0,[2,2])],
+table: [{3:1,4:2,8:$V0},{1:[3]},{5:[1,4],6:[1,5],7:$V1},o($V2,[2,4]),{1:[2,1]},{4:7,8:$V0},{4:8,8:$V0},o([5,6],[2,2],{7:$V1}),o($V2,[2,3])],
 defaultActions: {4:[2,1]},
 parseError: function parseError(str, hash) {
     if (hash.recoverable) {
@@ -574,18 +577,20 @@ var YYSTATE=YY_START;
 switch($avoiding_name_collisions) {
 case 0:/* skip whitespace */
 break;
-case 1:return 7
+case 1:return 8
 break;
 case 2:return 6
 break;
-case 3:return 5
+case 3:return 7
 break;
-case 4:return 'INVALID'
+case 4:return 5
+break;
+case 5:return 'INVALID'
 break;
 }
 },
-rules: [/^(?:\s+)/,/^(?:[0-9]+)/,/^(?:\+)/,/^(?:$)/,/^(?:.)/],
-conditions: {"INITIAL":{"rules":[0,1,2,3,4],"inclusive":true}}
+rules: [/^(?:\s+)/,/^(?:[0-9]+)/,/^(?:\+)/,/^(?:\*)/,/^(?:$)/,/^(?:.)/],
+conditions: {"INITIAL":{"rules":[0,1,2,3,4,5],"inclusive":true}}
 });
 return lexer;
 })();
