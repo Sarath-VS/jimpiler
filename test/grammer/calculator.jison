@@ -34,8 +34,7 @@
 
 expressions
     : E EOF
-        { typeof console !== 'undefined' ? console.log($1) : print($1);
-          return $1; }
+        { return $1; }
     ;
 
 E
@@ -57,5 +56,4 @@ E
         {$$ = [$1, $2]}
     | NUMBER
         {$$ = Number($1)}
-        //{$$ = require('number-to-words').toWords($1)}
     ;
