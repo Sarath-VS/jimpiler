@@ -1,3 +1,7 @@
+%{
+    var OpNode = require('../../../lib/OpNode.js');
+    var NumNode = require('../../../lib/NumNode.js');
+%}
 %lex
 
 %%
@@ -39,21 +43,21 @@ expressions
 
 E
     : E '+' E
-        {$$ = [$1, $2, $3]}
+        {$$ = [$1, new OpNode($2), $3]}
     | E '-' E
-        {$$ = [$1, $2, $3]}
+        {$$ = [$1, new OpNode($2), $3]}
     | E '*' E
-        {$$ = [$1, $2, $3]}
+        {$$ = [$1, new OpNode($2), $3]}
     | E '/' E
-        {$$ = [$1, $2, $3]}
+        {$$ = [$1, new OpNode($2), $3]}
     | E '^' E
-        {$$ = [$1, $2, $3]}
+        {$$ = [$1, new OpNode($2), $3]}
     | E '!'
         {$$ = [$1, $2]}
     | E '%' E
-        {$$ = [$1, $2, $3]}
+        {$$ = [$1, new OpNode($2), $3]}
     | UMINUS E
         {$$ = [$1, $2]}
     | NUMBER
-        {$$ = Number($1)}
+        {$$ = new NumNode($1)}
     ;
