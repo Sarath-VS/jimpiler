@@ -7,19 +7,19 @@ class Jimpiler {
         this.parser = new Parser(this.grammar);
     }
 
-    process(expression) {
+    process(expression, convert) {
         var parseTree = this.parser.parse(expression);
-        return evaluate(parseTree);
+        return evaluate(parseTree, convert);
     }
 }
 
-var evaluate = (parseTree) => {
+var evaluate = (parseTree, convert) => {
     var result = parseTree.reduce((result, node) => {
-        if (node instanceof Array) return result + evaluate(node);
-        return result + node.value;
+        if (node instanceof Array) return result + evaluate(node,convert);
+        return result + convert(node) + ' ';
     }, '');
 
-    return '(' + result + ')';
+    return '( ' + result + ')';
 }
 
 
