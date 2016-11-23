@@ -15,13 +15,11 @@ class Jimpiler {
 
 var evaluate = (parseTree, convert) => {
     var result = parseTree.reduce((result, node) => {
-        if (node instanceof Array) return result + evaluate(node,convert);
+        if (node instanceof Array) return result + evaluate(node, convert);
         return result + convert(node) + ' ';
     }, '');
 
     return '( ' + result + ')';
 }
-
-
 
 module.exports = Jimpiler;

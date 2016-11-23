@@ -81,5 +81,7 @@ E
     | NUMBER
         { $$ = new NumNode($1) }
     | VARIABLE
-        { $$ = shelf[$1] }
+        {if(!shelf[$1]) throw new Error(`Error: 'undefined' variable`);
+         $$ = shelf[$1];
+        }
     ;

@@ -38,7 +38,8 @@
 
 expressions
     : E EOF
-        { return $1; }
+        { //console.log($1);
+          return $1; }
     ;
 
 E
