@@ -7,19 +7,15 @@ class Jimpiler {
         this.parser = new Parser(this.grammar);
     }
 
-    process(expression, convert) {
+    process(expression, convert, calculate) {
         var parseTree = this.parser.parse(expression);
-        return evaluate(parseTree, convert);
+        var parseString = evaluate(parseTree, convert);
+        return calculate ? calculate(parseString) : parseString;
     }
 }
 
 var evaluate = (parseTree, convert) => {
-    var result = parseTree.reduce((result, node) => {
-        if (node instanceof Array) return result + evaluate(node, convert);
-        return result + convert(node) + ' ';
-    }, '');
-
-    return '( ' + result + ')';
+    return parseTree.slice(1)[0].evaluate();
 }
 
 module.exports = Jimpiler;
